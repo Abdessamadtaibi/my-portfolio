@@ -271,7 +271,7 @@ box-shadow: 5px 5px 40px  rgba(128, 186, 189, 0.535);
         margin-top: 2rem;
 
     }
-	.header-list.active {
+    .header-list.active {
         transform: translateY(0);
         opacity: 1;
     }
