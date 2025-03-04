@@ -10,6 +10,89 @@
     <title>Abdessamad Taibi</title>
 
 </head>
+<style>/* Mobile Menu Styles */
+    .menu-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 100003;
+    }
+    
+    .hamburger {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background: black;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    .hamburger::before,
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: black;
+        transition: all 0.3s ease;
+    }
+    
+    .hamburger::before { transform: translateY(-6px); }
+    .hamburger::after { transform: translateY(6px); }
+    
+    /* Active states */
+    .menu-toggle.active .hamburger {
+        background: transparent;
+    }
+    
+    .menu-toggle.active .hamburger::before {
+        transform: rotate(45deg);
+    }
+    
+    .menu-toggle.active .hamburger::after {
+        transform: rotate(-45deg);
+    }
+    
+    .header-list {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+    
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: block;
+        }
+    
+        .header-list {
+            position: fixed;
+            top: 80px; /* Adjust based on header height */
+            left: 0;
+            right: 0;
+            flex-direction: column;
+            background:url('/static/images/footer-shape.png');
+            background-color: #d8f6f9c9;
+            padding: 2rem;
+            margin: 0 5%;
+            border-radius: 20px;
+            transform: translateY(-150%);
+            opacity: 1;
+            transition: all 0.3s ease;
+            z-index: 100001;
+        }
+    
+        .header-list.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    
+        .header-btn {
+            display: none; /* Hide get started button on mobile */
+        }
+    }
+    </style>
 <body>
     <header>
         <div class="header-content">
@@ -221,5 +304,37 @@
                 </div>
             </div>
     <section>
+<script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const toggle = document.querySelector('.menu-toggle');
+                const menu = document.querySelector('.header-list');
+                const header = document.querySelector('.header');
+            
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    menu.classList.toggle('active');
+                    toggle.classList.toggle('active');
+                    header.style.backdropFilter = menu.classList.contains('active') 
+                        ? 'blur(60px)' 
+                        : 'blur(40px)';
+                });
+            
+                document.addEventListener('click', (e) => {
+                    if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+                        menu.classList.remove('active');
+                        toggle.classList.remove('active');
+                        header.style.backdropFilter = 'blur(40px)';
+                    }
+                });
+            
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth > 768) {
+                        menu.classList.remove('active');
+                        toggle.classList.remove('active');
+                        header.style.backdropFilter = 'blur(40px)';
+                    }
+                });
+            });
+            </script>
 </body>
 </html>
